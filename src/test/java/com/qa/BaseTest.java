@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import com.qa.utils.TestUtils;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -40,7 +41,6 @@ public class BaseTest {
 		PageFactory.initElements(new AppiumFieldDecorator(driver), this);
 	}
 	
-
 
 	@BeforeSuite
 	public void beforeSuite() {
@@ -133,6 +133,16 @@ public void clear(WebElement e) {
 	  waitForVisibility(e);
 	 return e.getAttribute(attribute);
 	  }
+  
+  public void closeApp() {
+	    ((InteractsWithApps) driver).terminateApp(props.getProperty("androidAppPackage"));
+	}
+
+  
+  public void launchApp() {
+	    ((InteractsWithApps) driver).activateApp(props.getProperty("androidAppPackage"));
+	}
+
   
   
   @AfterTest

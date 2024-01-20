@@ -9,6 +9,7 @@
         <parameter name="deviceName" value="R3CR30Q97HV" />
         <classes>
             <class name="com.qa.tests.LoginTests"/>
+            <class name="com.qa.tests.ProductTests"/>
         </classes>
     </test>
  </suite> <!-- Suite -->

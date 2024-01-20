@@ -40,6 +40,9 @@ public class LoginTests extends BaseTest{
 			}
 		}
 		
+		closeApp();
+		launchApp();
+		
 	}
 
 @AfterClass
