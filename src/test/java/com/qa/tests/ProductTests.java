@@ -58,18 +58,21 @@ public void afterClass() {
 public void beforeMethod(Method m) {
 	loginPage = new LoginPage();
 	System.out.println("\n" + "****** starting test:" + m.getName() + "******" + "\n");
+	
+	  productsPage = loginPage.login(loginUsers.getJSONObject("validUser").getString("username"), 
+			  loginUsers.getJSONObject("validUser").getString("password"));
+	
 }
 
 @AfterMethod
 public void afterMethod() {
+	closeApp();
+	launchApp();
 }
 
-  @Test
+  @Test(priority = 1)
   public void validateProductOnProductsPage() {
 	  SoftAssert sa = new SoftAssert();
-	  
-	  productsPage = loginPage.login(loginUsers.getJSONObject("validUser").getString("username"), 
-			  loginUsers.getJSONObject("validUser").getString("password"));
 	  
 	  String SLBTitle = productsPage.getSLBTitle();
 	  sa.assertEquals(SLBTitle, "Sauce Labs Backpack");
@@ -77,18 +80,12 @@ public void afterMethod() {
 	  String SLBTPrice = productsPage.getSLBPrice();
 	  sa.assertEquals(SLBTPrice, "$29.99");
 	  
-	  settingsPage = productsPage.pressSettingsBtn();
-	  loginPage = settingsPage.pressLogoutBtn();
-	  
 	  sa.assertAll();
   }
   
-  @Test
+  @Test(priority = 2)
   public void validateProductOnProductDetailsPage() {
 	  SoftAssert sa = new SoftAssert();
-	  
-	  productsPage = loginPage.login(loginUsers.getJSONObject("validUser").getString("username"), 
-			  loginUsers.getJSONObject("validUser").getString("password"));
 	  
 	  productDetailsPage = productsPage.pressSLBTitle();
 	  
@@ -99,9 +96,6 @@ public void afterMethod() {
 	  sa.assertEquals(SLBTxt, "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.");
 	  
 	  productsPage = productDetailsPage.pressBackToProductsBtn();
-	  
-	  settingsPage = productsPage.pressSettingsBtn();
-	  loginPage = settingsPage.pressLogoutBtn();
 	  
 	  sa.assertAll();
 
